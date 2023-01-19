@@ -5,8 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,6 +20,15 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private final Talon leftMotor = new Talon(0);
+  private final Talon leftMotorFollower = new Talon(1);
+  private final Talon rightMotor = new Talon(2);
+  private final Talon rightMotorFollower = new Talon(3);
+  private final MotorControllerGroup mGroupLeft = new MotorControllerGroup(leftMotor, leftMotorFollower);
+  private final MotorControllerGroup mGroupRight = new MotorControllerGroup(rightMotor, rightMotorFollower);
+  private final DifferentialDrive diffDrive = new DifferentialDrive(mGroupLeft, mGroupRight);
+  private XboxController controller = new XboxController(0);
+  
 
   private RobotContainer m_robotContainer;
 
@@ -28,6 +41,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    mGroupRight.setInverted(true);
   }
 
   /**
@@ -81,7 +95,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    diffDrive.arcadeDrive(controller.getLeftY(), controller.getLeftX());
+  }
 
   @Override
   public void testInit() {
