@@ -18,7 +18,7 @@ public class RobotContainer
 {
   private Drivetrain drivetrain;
   private Spin spin;
-  private CommandXboxController driverController;
+  private CommandXboxController driverController = new CommandXboxController(0);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
