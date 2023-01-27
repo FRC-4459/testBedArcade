@@ -48,14 +48,6 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)
     //     .onTrue(new ExampleCommand(m_exampleSubsystem));
-    
-    if (drivetrain == null) {
-      System.out.println("Drivetrain is null.");
-    } else if (spin == null) {
-      System.out.println("Spin object is null.");
-    } else if (driverController == null) {
-      System.out.println("Driver controller is null.");
-    }
 
     // Schedule a Spin command as long as B is held.
     driverController.b().whileTrue(spin);
