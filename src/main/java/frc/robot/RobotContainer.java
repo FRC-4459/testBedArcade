@@ -18,20 +18,20 @@ public class RobotContainer
 {
   private Drivetrain drivetrain;
   private Spin spin;
-  private CommandXboxController driverController = new CommandXboxController(0);
+  private CommandXboxController driverController;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer(Drivetrain dt, CommandXboxController xbc) 
   {
-    // Configure the trigger bindings
-    configureBindings();
     // Use our Drivetrain subsystem initialized in Robot.java
     drivetrain = dt;
     // Use the controller we've passed from Robot.java
     driverController = xbc;
     // Initialize a Spin command object using our drivetrain
     spin = new Spin(drivetrain);
+    // Configure the trigger bindings
+    configureBindings();
   }
 
   /**
@@ -49,6 +49,14 @@ public class RobotContainer
     // new Trigger(m_exampleSubsystem::exampleCondition)
     //     .onTrue(new ExampleCommand(m_exampleSubsystem));
     
+    if (drivetrain == null) {
+      System.out.println("Drivetrain is null.");
+    } else if (spin == null) {
+      System.out.println("Spin object is null.");
+    } else if (driverController == null) {
+      System.out.println("Driver controller is null.");
+    }
+
     // Schedule a Spin command as long as B is held.
     driverController.b().whileTrue(spin);
   }
