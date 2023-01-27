@@ -1,13 +1,11 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 
 public class Drivetrain extends SubsystemBase 
 {
@@ -44,15 +42,54 @@ public class Drivetrain extends SubsystemBase
     rightMotorFollower.set(i);
   }
 
+  public void set(int i) 
+  {
+    rightMotor.set(i);
+    leftMotor.set(i);
+    rightMotorFollower.set(i);
+    leftMotorFollower.set(i);
+  }
+
+  public void stop()
+  {
+    rightMotor.stopMotor();
+    leftMotor.stopMotor();
+    rightMotorFollower.stopMotor();
+    leftMotorFollower.stopMotor();
+  }
+
   public void Drive(String mode, Double axis1, Double axis2) {
-    // Flip the values going to the testbed, because it typically
-    // drives backwards.
+    // Flip the values going to the testbed, because otherwise it would drive backwards.
     axis1 = -axis1;
     axis2 = -axis2;
 
     if (mode == "Arcade") 
     {
       diffDrive.arcadeDrive(axis1, axis2);
+    }
+    else if (mode == "Tank")
+    {
+      diffDrive.tankDrive(axis1, axis2);
+    }
+  }
+
+  public CommandBase driveForwardCommand(int secs, int speed) {
+    return runOnce(
+        () -> {
+          set(speed);
+          safeSleep(secs);
+          stop();
+        });
+  }
+
+  private void safeSleep(int secs) 
+  {
+    try 
+    {
+      Thread.sleep(secs * 1000);
+    } catch(InterruptedException e)
+    {
+      System.out.println("Thread sleep in Drivetrain.java/driveForwardCommand interrupted!");
     }
   }
 
