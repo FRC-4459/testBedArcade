@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
+import frc.robot.Utility;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
@@ -9,12 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Drivetrain extends SubsystemBase 
 {
-    private final Talon rightMotor = new Talon(0);
-    private final Talon rightMotorFollower = new Talon(1);
-    private final Talon leftMotor = new Talon(2);
-    private final Talon leftMotorFollower = new Talon(3);
+    private final Talon rightMotor = new Talon(Constants.rightMotorPort);
+    private final Talon rightMotorFollower = new Talon(Constants.rightMotorFollowerPort);
+    private final Talon leftMotor = new Talon(Constants.leftMotorPort);
+    private final Talon leftMotorFollower = new Talon(Constants.leftMotorFollowerPort);
+
     private final MotorControllerGroup motorGroupLeft = new MotorControllerGroup(leftMotor, leftMotorFollower);
     private final MotorControllerGroup motorGroupRight = new MotorControllerGroup(rightMotor, rightMotorFollower);
+
     private final DifferentialDrive diffDrive = new DifferentialDrive(motorGroupLeft, motorGroupRight);
 
   public Drivetrain() 
@@ -26,7 +30,10 @@ public class Drivetrain extends SubsystemBase
 
   public boolean stopped() 
   {
-    //Put some code here to check if the drivetrain is stopped (test Check/GetStatus on the motor controllers)
+    if (Utility.allEqual(getAllMotors(), 0)) 
+    {
+      return true;
+    }
     return false;
   }
 
@@ -77,21 +84,23 @@ public class Drivetrain extends SubsystemBase
     return runOnce(
         () -> {
           set(speed);
-          safeSleep(secs);
+          Utility.safeSleep(secs);
           stop();
         });
   }
 
-  private void safeSleep(int secs) 
+  private double[] getAllMotors() 
   {
-    try 
-    {
-      Thread.sleep(secs * 1000);
-    } catch(InterruptedException e)
-    {
-      System.out.println("Thread sleep in Drivetrain.java/driveForwardCommand interrupted!");
-    }
+    double[] arr = new double[4];
+    
+    arr[0] = rightMotor.get() ;
+    arr[1] = rightMotorFollower.get();
+    arr[2] = leftMotor.get();
+    arr[3] = leftMotorFollower.get();
+    
+    return arr;
   }
+
 
   @Override
   public void periodic() 
