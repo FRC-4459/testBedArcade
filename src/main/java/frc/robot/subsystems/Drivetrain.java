@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 public class Drivetrain extends SubsystemBase 
@@ -44,20 +43,23 @@ public class Drivetrain extends SubsystemBase
     return false;
   }
 
-  public void setLeft(int i) 
+  public void setLeft(double i) 
   {
+    i = i * speedMult;
     leftMotor.set(i);
     leftMotorFollower.set(i);
   }
   
-  public void setRight(int i) 
+  public void setRight(double i) 
   {
+    i = i * speedMult;
     rightMotor.set(i);
     rightMotorFollower.set(i);
   }
 
-  public void set(int i) 
+  public void set(double i) 
   {
+    i = i * speedMult;
     rightMotor.set(i);
     leftMotor.set(i);
     rightMotorFollower.set(i);
@@ -88,15 +90,6 @@ public class Drivetrain extends SubsystemBase
     {
       diffDrive.tankDrive(axis1, axis2);
     }
-  }
-
-  public CommandBase driveForwardCommand(int secs, int speed) {
-    return runOnce(
-        () -> {
-          set(speed);
-          Utility.safeSleep(secs);
-          stop();
-        });
   }
 
   private double[] getAllMotors() 
