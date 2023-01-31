@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class Drivetrain extends SubsystemBase 
 {
@@ -20,7 +20,7 @@ public class Drivetrain extends SubsystemBase
     private final MotorControllerGroup motorGroupRight = new MotorControllerGroup(rightMotor, rightMotorFollower);
 
     private final DifferentialDrive diffDrive = new DifferentialDrive(motorGroupLeft, motorGroupRight);
-
+    private final MecanumDrive MecDrive = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor)
   public Drivetrain() 
   {
     // Invert the voltages going to the right side of the robot.
@@ -77,6 +77,10 @@ public class Drivetrain extends SubsystemBase
     else if (mode == "Tank")
     {
       diffDrive.tankDrive(axis1, axis2);
+    }
+    else if (mode == "Mecanum")
+    {
+      diffDrive
     }
   }
 
