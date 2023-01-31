@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class Drivetrain extends SubsystemBase 
 {
@@ -19,6 +20,7 @@ public class Drivetrain extends SubsystemBase
     private final MotorControllerGroup motorGroupRight = new MotorControllerGroup(rightMotor, rightMotorFollower);
 
     private final DifferentialDrive diffDrive = new DifferentialDrive(motorGroupLeft, motorGroupRight);
+    private final MecanumDrive mecDrive = new MecanumDrive(leftMotor, leftMotorFollower, rightMotor, rightMotorFollower);
 
     private final double speedMult = 0.8;
 
@@ -90,6 +92,22 @@ public class Drivetrain extends SubsystemBase
     {
       diffDrive.tankDrive(axis1, axis2);
     }
+
+  }
+
+  public void Drive(String mode, Double axis1, Double axis2, Double axis3) {
+    // Flip the values going to the testbed, because otherwise it would drive backwards.
+    axis1 = -axis1;
+    axis3 = -axis3;
+
+    axis1 *= speedMult;
+    axis2 *= speedMult;
+    axis3 *= speedMult;
+
+    if (mode == "Mecanum")
+    {
+      mecDrive.driveCartesian(axis2, axis3, axis1);
+    }
   }
 
   private double[] getAllMotors() 
@@ -117,7 +135,7 @@ public class Drivetrain extends SubsystemBase
   public void periodic() 
   {
     feedMotors();
-  }
+    }
 
   @Override
   public void simulationPeriodic() 
