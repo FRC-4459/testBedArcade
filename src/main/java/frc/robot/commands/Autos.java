@@ -18,7 +18,7 @@ public final class Autos {
 
   public static CommandBase driveForwardAuto(Drivetrain drivetrain) 
   {
-    return Commands.sequence(drivetrain.driveForwardCommand(5, 50));
+    return Commands.sequence(drivetrain.driveForwardCommand(5, 15));
   }
 
   private Autos() {
