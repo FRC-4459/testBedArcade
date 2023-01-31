@@ -26,8 +26,8 @@ public class Spin extends CommandBase
   @Override
   public void execute() 
   {
-    drivetrain.setLeft(-127);
-    drivetrain.setRight(127);
+    drivetrain.setLeft(90);
+    drivetrain.setRight(90);
   }
 
   // Called once the command ends or is interrupted.

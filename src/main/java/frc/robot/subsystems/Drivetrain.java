@@ -21,10 +21,17 @@ public class Drivetrain extends SubsystemBase
 
     private final DifferentialDrive diffDrive = new DifferentialDrive(motorGroupLeft, motorGroupRight);
 
+    private final double speedMult = 0.8;
+
   public Drivetrain() 
   {
     // Invert the voltages going to the right side of the robot.
     motorGroupRight.setInverted(true);
+
+    rightMotor.setSafetyEnabled(true);
+    rightMotorFollower.setSafetyEnabled(true);
+    leftMotor.setSafetyEnabled(true);
+    leftMotorFollower.setSafetyEnabled(true);
   }
 
 
@@ -70,6 +77,9 @@ public class Drivetrain extends SubsystemBase
     axis1 = -axis1;
     axis2 = -axis2;
 
+    axis1 *= speedMult;
+    axis2 *= speedMult;
+
     if (mode == "Arcade") 
     {
       diffDrive.arcadeDrive(axis1, axis2);
@@ -101,11 +111,19 @@ public class Drivetrain extends SubsystemBase
     return arr;
   }
 
+  private void feedMotors() 
+  {
+    leftMotor.feed();
+    leftMotorFollower.feed();
+    rightMotor.feed();
+    rightMotorFollower.feed();
+  }
+
 
   @Override
   public void periodic() 
   {
-    // This method will be called once per scheduler run
+    feedMotors();
   }
 
   @Override
