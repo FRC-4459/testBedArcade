@@ -20,7 +20,7 @@ public class Drivetrain extends SubsystemBase
     private final MotorControllerGroup motorGroupRight = new MotorControllerGroup(rightMotor, rightMotorFollower);
 
     private final DifferentialDrive diffDrive = new DifferentialDrive(motorGroupLeft, motorGroupRight);
-    private final MecanumDrive MecDrive = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor)
+    private final MecanumDrive mecDrive = new MecanumDrive(leftMotor, leftMotorFollower, rightMotor, rightMotorFollower);
 
     private final double speedMult = 0.8;
 
@@ -89,9 +89,21 @@ public class Drivetrain extends SubsystemBase
     {
       diffDrive.tankDrive(axis1, axis2);
     }
-    else if (mode == "Mecanum")
+
+  }
+
+  public void Drive(String mode, Double axis1, Double axis2, Double axis3) {
+    // Flip the values going to the testbed, because otherwise it would drive backwards.
+    axis1 = -axis1;
+    axis3 = -axis3;
+
+    axis1 *= speedMult;
+    axis2 *= speedMult;
+    axis3 *= speedMult;
+
+    if (mode == "Mecanum")
     {
-      diffDrive
+      mecDrive.driveCartesian(axis2, axis3, axis1);
     }
   }
 
