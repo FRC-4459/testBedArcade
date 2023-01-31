@@ -45,20 +45,23 @@ public class Drivetrain extends SubsystemBase
     return false;
   }
 
-  public void setLeft(int i) 
+  public void setLeft(double i) 
   {
+    i = i * speedMult;
     leftMotor.set(i);
     leftMotorFollower.set(i);
   }
   
-  public void setRight(int i) 
+  public void setRight(double i) 
   {
+    i = i * speedMult;
     rightMotor.set(i);
     rightMotorFollower.set(i);
   }
 
-  public void set(int i) 
+  public void set(double i) 
   {
+    i = i * speedMult;
     rightMotor.set(i);
     leftMotor.set(i);
     rightMotorFollower.set(i);
@@ -105,15 +108,6 @@ public class Drivetrain extends SubsystemBase
     {
       mecDrive.driveCartesian(axis2, axis3, axis1);
     }
-  }
-
-  public CommandBase driveForwardCommand(int secs, int speed) {
-    return runOnce(
-        () -> {
-          set(speed);
-          Utility.safeSleep(secs);
-          stop();
-        });
   }
 
   private double[] getAllMotors() 
