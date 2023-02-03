@@ -97,7 +97,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-    drivetrain.Drive("Mecanum", driverController.getLeftY(), driverController.getRightX(), driverController.getRightTriggerAxis());
+    System.out.print(String.valueOf(driverController.getRightX()) + "\n");
+    drivetrain.mechanumDrive(driverController.getRightX(), driverController.getLeftY(), driverController.getLeftTriggerAxis(),  driverController.getRightTriggerAxis());
   }
 
   @Override
