@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class Drivetrain extends SubsystemBase 
 {
@@ -20,15 +19,11 @@ public class Drivetrain extends SubsystemBase
     private final MotorControllerGroup motorGroupRight = new MotorControllerGroup(rightMotor, rightMotorFollower);
 
     private final DifferentialDrive diffDrive = new DifferentialDrive(motorGroupLeft, motorGroupRight);
-    private final MecanumDrive mecDrive = new MecanumDrive(leftMotor, leftMotorFollower, rightMotor, rightMotorFollower);
 
     private final double speedMult = 0.8;
 
   public Drivetrain() 
   {
-    // Invert the voltages going to the right side of the robot.
-    motorGroupRight.setInverted(true);
-
     rightMotor.setSafetyEnabled(true);
     rightMotorFollower.setSafetyEnabled(true);
     leftMotor.setSafetyEnabled(true);
@@ -45,19 +40,19 @@ public class Drivetrain extends SubsystemBase
     return false;
   }
 
-  public void setLeft(int i) 
+  public void setLeft(double i) 
   {
     leftMotor.set(i);
     leftMotorFollower.set(i);
   }
   
-  public void setRight(int i) 
+  public void setRight(double i) 
   {
     rightMotor.set(i);
     rightMotorFollower.set(i);
   }
 
-  public void set(int i) 
+  public void set(double i) 
   {
     rightMotor.set(i);
     leftMotor.set(i);
@@ -92,19 +87,46 @@ public class Drivetrain extends SubsystemBase
 
   }
 
-  public void Drive(String mode, Double axis1, Double axis2, Double axis3) {
+
+  // Drive with 4 params = Mechanum Drive
+  public void Drive(Double forwardBack, Double leftRight, Double shiftRight, double shiftLeft) {
     // Flip the values going to the testbed, because otherwise it would drive backwards.
-    axis1 = -axis1;
-    axis3 = -axis3;
+    // forwardBack = -forwardBack;
+    // shiftRight = -shiftRight;
+    // shiftLeft = -shiftLeft;
 
-    axis1 *= speedMult;
-    axis2 *= speedMult;
-    axis3 *= speedMult;
+    forwardBack *= speedMult;
+    leftRight *= speedMult;
+    shiftRight *= speedMult;
+    shiftLeft *= speedMult;
 
-    if (mode == "Mecanum")
-    {
-      mecDrive.driveCartesian(axis2, axis3, axis1);
-    }
+      if (forwardBack != 0)
+      {
+        setLeft(-forwardBack);
+        setRight(forwardBack);
+      }
+
+      if (leftRight != 0)
+      {
+        setLeft(leftRight);
+        setRight(leftRight);
+      }
+
+      if (shiftRight != 0)
+      {
+        leftMotor.set(shiftRight);
+        leftMotorFollower.set(-shiftRight);
+        rightMotor.set(shiftRight);
+        rightMotorFollower.set(-shiftRight);
+      }
+
+      if (shiftLeft != 0)
+      {
+        leftMotor.set(-shiftLeft);
+        leftMotorFollower.set(shiftLeft);
+        rightMotor.set(-shiftLeft);
+        rightMotorFollower.set(shiftLeft);
+      }
   }
 
   public CommandBase driveForwardCommand(int secs, int speed) {

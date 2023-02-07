@@ -57,7 +57,6 @@ public class Robot extends TimedRobot
   @Override
   public void disabledPeriodic() 
   {
-    
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
@@ -97,7 +96,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-    drivetrain.Drive("Mecanum", driverController.getLeftY(), driverController.getRightX(), driverController.getRightTriggerAxis());
+    drivetrain.Drive(driverController.getLeftY(), driverController.getRightX(), driverController.getRightTriggerAxis(), driverController.getLeftTriggerAxis());
   }
 
   @Override
