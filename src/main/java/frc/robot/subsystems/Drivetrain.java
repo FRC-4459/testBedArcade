@@ -23,13 +23,12 @@ public class Drivetrain extends SubsystemBase
 
   public Drivetrain() 
   {
-    // Invert the voltages going to the right side of the robot.
-    motorGroupRight.setInverted(false);
+    motorGroupLeft.setInverted(true);
 
-    rightMotor.setSafetyEnabled(true);
-    rightMotorFollower.setSafetyEnabled(true);
-    leftMotor.setSafetyEnabled(true);
-    leftMotorFollower.setSafetyEnabled(true);
+    // rightMotor.setSafetyEnabled(true);
+    // rightMotorFollower.setSafetyEnabled(true);
+    // leftMotor.setSafetyEnabled(true);
+    // leftMotorFollower.setSafetyEnabled(true);
   }
 
 
@@ -89,38 +88,19 @@ public class Drivetrain extends SubsystemBase
 
   }
 
-  public void mechanumDrive(double forwardBack, double leftRight, double shiftLeft, double shiftRight) 
+  public void mechanumDrive(double forwardBack, double leftRight, double shift) 
   {
-    // forwardBack *= speedMult;
-
-    // Controls Driving forwards & backwards using the first axis passed.
-    if (forwardBack != 0.0) 
+    if (forwardBack != 0) 
     {
-      setLeft(forwardBack);
-      setRight(-forwardBack);
+      setLeft(-forwardBack);
+      setRight(forwardBack);
     }
 
-    if (leftRight != 0.0) 
+    if (leftRight != 0) 
     {
       setLeft(leftRight);
       setRight(leftRight);
     }
-
-    // if (shiftLeft != 0.0) 
-    // {
-    //   rightMotor.set(-shiftLeft);
-    //   leftMotorFollower.set(-shiftLeft);
-    //   rightMotorFollower.set(shiftLeft);
-    //   leftMotor.set(shiftLeft);
-    // }
-
-    // if (shiftRight != 0.0) 
-    // {
-    //   rightMotor.set(shiftRight);
-    //   leftMotorFollower.set(shiftRight);
-    //   rightMotorFollower.set(-shiftRight);
-    //   leftMotor.set(-shiftRight);
-    // }
 
   }
 
@@ -148,8 +128,8 @@ public class Drivetrain extends SubsystemBase
   @Override
   public void periodic() 
   {
-    feedMotors();
-    }
+    // feedMotors();
+  }
 
   @Override
   public void simulationPeriodic() 
