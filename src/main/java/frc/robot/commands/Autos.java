@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.Spin;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Drivetrain;
@@ -18,7 +19,8 @@ public final class Autos {
 
   public static CommandBase driveForwardAuto(Drivetrain drivetrain) 
   {
-    return Commands.sequence(drivetrain.driveForwardCommand(5, 15));
+    Spin spin = new Spin(drivetrain, true, 3);
+    return Commands.sequence(spin);
   }
 
   private Autos() {

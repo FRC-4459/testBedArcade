@@ -28,7 +28,7 @@ public class RobotContainer
     // Use the controller we've passed from Robot.java
     driverController = xbc;
     // Initialize a Spin command object using our drivetrain
-    spin = new Spin(drivetrain);
+    spin = new Spin(drivetrain, true, 5);
     // Configure the trigger bindings
     configureBindings();
   }
