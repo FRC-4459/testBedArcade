@@ -96,11 +96,11 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-    drivetrain.Drive(driverController.getLeftY(), driverController.getRightX(), driverController.getRightTriggerAxis(), driverController.getLeftTriggerAxis());
+    drivetrain.mechanumDrive(driverController);
   }
 
   @Override
-  public void testInit() 
+  public void testInit()
   {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();

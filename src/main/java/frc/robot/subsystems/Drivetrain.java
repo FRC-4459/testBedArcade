@@ -5,8 +5,8 @@ import frc.robot.Utility;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Drivetrain extends SubsystemBase 
 {
@@ -28,6 +28,9 @@ public class Drivetrain extends SubsystemBase
     rightMotorFollower.setSafetyEnabled(true);
     leftMotor.setSafetyEnabled(true);
     leftMotorFollower.setSafetyEnabled(true);
+
+    rightMotor.setInverted(true);
+    rightMotorFollower.setInverted(true);
   }
 
 
@@ -44,7 +47,7 @@ public class Drivetrain extends SubsystemBase
   {
     i = i * speedMult;
     leftMotor.set(i);
-    leftMotorFollower.set(i);
+    leftMotorFollower.set(i / 2);
   }
   
   public void setRight(double i) 
@@ -91,45 +94,56 @@ public class Drivetrain extends SubsystemBase
   }
 
 
-  // Drive with 4 params = Mechanum Drive
-  public void Drive(Double forwardBack, Double leftRight, Double shiftRight, double shiftLeft) {
-    // Flip the values going to the testbed, because otherwise it would drive backwards.
-    // forwardBack = -forwardBack;
-    // shiftRight = -shiftRight;
-    // shiftLeft = -shiftLeft;
+  public void mechanumDrive(CommandXboxController controller) {
+    double forwardBack = controller.getLeftY();
+    double left = controller.getLeftTriggerAxis();
+    double right = controller.getRightTriggerAxis();
+    double shiftX = controller.getRightX();
+    double shiftY = controller.getRightY();
 
     forwardBack *= speedMult;
-    leftRight *= speedMult;
-    shiftRight *= speedMult;
-    shiftLeft *= speedMult;
+    left *= speedMult;
+    right *= speedMult;
+    shiftX *= speedMult;
+    shiftY *= speedMult;
 
-      if (forwardBack != 0)
+    forwardBack = -forwardBack;
+
+      if (forwardBack > 0.05 || forwardBack < -0.05)
       {
-        setLeft(-forwardBack);
+        System.out.print(forwardBack);
+        System.out.print("\n");
+        setLeft(forwardBack);
         setRight(forwardBack);
       }
 
-      if (leftRight != 0)
+      if (left > 0.05)
       {
-        setLeft(leftRight);
-        setRight(leftRight);
+        setLeft(-left);
+        setRight(left);
       }
 
-      if (shiftRight != 0)
+      if (right > 0.05) 
       {
-        leftMotor.set(shiftRight);
-        leftMotorFollower.set(-shiftRight);
-        rightMotor.set(shiftRight);
-        rightMotorFollower.set(-shiftRight);
+        setLeft(right);
+        setRight(-right);
       }
 
-      if (shiftLeft != 0)
-      {
-        leftMotor.set(-shiftLeft);
-        leftMotorFollower.set(shiftLeft);
-        rightMotor.set(-shiftLeft);
-        rightMotorFollower.set(shiftLeft);
-      }
+      // if (shiftRight != 0)
+      // {
+      //   leftMotor.set(shiftRight);
+      //   leftMotorFollower.set(-shiftRight);
+      //   rightMotor.set(shiftRight);
+      //   rightMotorFollower.set(-shiftRight);
+      // }
+
+      // if (shiftLeft != 0)
+      // {
+      //   leftMotor.set(-shiftLeft);
+      //   leftMotorFollower.set(shiftLeft);
+      //   rightMotor.set(-shiftLeft);
+      //   rightMotorFollower.set(shiftLeft);
+      // }
   }
 
   private double[] getAllMotors() 

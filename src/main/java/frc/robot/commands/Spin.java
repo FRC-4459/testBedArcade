@@ -12,6 +12,8 @@ public class Spin extends CommandBase
   private final boolean timed;
   private Timer timer = new Timer();
 
+  
+
   public Spin(Drivetrain dt, boolean isTimed, int secs) 
   {
     drivetrain = dt;
