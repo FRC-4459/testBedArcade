@@ -10,14 +10,15 @@ import edu.wpi.first.wpilibj.Timer;
 
 /** An example command that uses an example subsystem. */
 public class DriveForward extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain drivetrain;
   private final double speed;
   private final double time;
   private Timer timer = new Timer();
 
 
-  public DriveForward(Drivetrain dt, double motorSpeed, double timeSec) {
+  public DriveForward(Drivetrain dt, double motorSpeed, double timeSec) 
+  {
     drivetrain = dt;
     speed = motorSpeed;
     time = timeSec;
@@ -27,30 +28,35 @@ public class DriveForward extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize()
+  {
     timer.reset();
     timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute()
+  {
     drivetrain.setLeft(-speed);
     drivetrain.setRight(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrupted)
+  {
     drivetrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    if (timer.get() > time) {
+  public boolean isFinished()
+  {
+    if (timer.get() > time)
+    {
       return true;
     }
-      return false;
+    return false;
   }
 }
