@@ -1,8 +1,10 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.commands.Spin;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.commands.ClawGrab;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -15,7 +17,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   private Drivetrain drivetrain;
-  private Spin spin;
+  private Claw claw;
+  private ClawGrab clawGrab;
   private CommandXboxController driverController;
 
 
@@ -25,8 +28,10 @@ public class RobotContainer {
     drivetrain = dt;
     // Use the controller we've passed from Robot.java
     driverController = xbc;
-    // Initialize a Spin command object using our drivetrain
-    spin = new Spin(drivetrain, true, 5);
+    // Initalize a new Claw subsystem
+    claw = new Claw();
+    // Initalize a new ClawGrab command
+    clawGrab = new ClawGrab(claw);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -47,7 +52,7 @@ public class RobotContainer {
     // .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule a Spin command as long as B is held.
-    driverController.b().whileTrue(spin);
+    driverController.b().toggleOnTrue(clawGrab);
   }
 
   public Command getAutonomousCommand()

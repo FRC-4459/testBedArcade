@@ -135,19 +135,20 @@ public class Drivetrain extends SubsystemBase {
     if ((shiftX > 0.12 || shiftX < -0.12) || (shiftY > 0.12 || shiftY < -0.12))
     {
       double desiredAngle = Math.atan(shiftY / shiftX) - 45;
-      double mg1, mg2;
+      double motorGroup1, motorGroup2;
+      
       if (shiftX > 0)
       {
 
         if (shiftY < 0)
         {
-          mg1 = Math.cos(desiredAngle);
-          mg2 = Math.sin(-desiredAngle);
+          motorGroup1 = Math.cos(desiredAngle);
+          motorGroup2 = Math.sin(-desiredAngle);
         }
         else
         {
-          mg1 = Math.cos(desiredAngle);
-          mg2 = Math.sin(desiredAngle);
+          motorGroup1 = Math.cos(desiredAngle);
+          motorGroup2 = Math.sin(desiredAngle);
         }
       }
       
@@ -155,20 +156,20 @@ public class Drivetrain extends SubsystemBase {
       {
         if (shiftY < 0)
         {
-          mg1 = Math.cos(-desiredAngle);
-          mg2 = Math.sin(-desiredAngle);
+          motorGroup1 = Math.cos(-desiredAngle);
+          motorGroup2 = Math.sin(-desiredAngle);
         }
         else
         {
-          mg1 = Math.cos(-desiredAngle);
-          mg2 = Math.sin(desiredAngle);
+          motorGroup1 = Math.cos(-desiredAngle);
+          motorGroup2 = Math.sin(desiredAngle);
         }
       }
-      
-      rightMotor.set(mg2);
-      rightMotorFollower.set(mg1);
-      leftMotor.set(mg1);
-      leftMotorFollower.set(mg2);
+
+      rightMotor.set(motorGroup2);
+      rightMotorFollower.set(motorGroup1);
+      leftMotor.set(motorGroup1);
+      leftMotorFollower.set(motorGroup2);
     }
   }
 
