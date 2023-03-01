@@ -110,7 +110,13 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic() 
   {
-    
+    System.out.print("X: ");
+    System.out.print(driverController.getRightX());
+    System.out.print("\n");
+
+    System.out.print("Y: ");
+    System.out.print(-driverController.getRightY());
+    System.out.print("\n");
   }
 
   /** This function is called once when the robot is first started up. */

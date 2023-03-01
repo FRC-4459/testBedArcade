@@ -101,11 +101,11 @@ public class Drivetrain extends SubsystemBase
     double shiftX = controller.getRightX();
     double shiftY = controller.getRightY();
 
+    shiftY = -shiftY;
+
     forwardBack *= speedMult;
     left *= speedMult;
     right *= speedMult;
-    shiftX *= speedMult;
-    shiftY *= speedMult;
 
     forwardBack = -forwardBack;
 
@@ -129,21 +129,28 @@ public class Drivetrain extends SubsystemBase
         setRight(-right);
       }
 
-      // if (shiftRight != 0)
-      // {
-      //   leftMotor.set(shiftRight);
-      //   leftMotorFollower.set(-shiftRight);
-      //   rightMotor.set(shiftRight);
-      //   rightMotorFollower.set(-shiftRight);
-      // }
-
-      // if (shiftLeft != 0)
-      // {
-      //   leftMotor.set(-shiftLeft);
-      //   leftMotorFollower.set(shiftLeft);
-      //   rightMotor.set(-shiftLeft);
-      //   rightMotorFollower.set(shiftLeft);
-      // }
+      if ((shiftX > 0.12 || shiftX < -0.12) || (shiftY > 0.12 || shiftY < -0.12)) 
+      {
+        double desiredAngle = Math.atan(shiftY / shiftX) - 45;
+        double mg1, mg2;
+        if (shiftX > 0) {
+          mg1 = Math.cos(desiredAngle);
+          mg2 = Math.sin(desiredAngle);
+        } else {
+          if (shiftY < 0) 
+          {
+            mg1 = Math.cos(desiredAngle);
+            mg2 = Math.sin(-desiredAngle); 
+          } else {
+            mg1 = Math.cos(-desiredAngle);
+            mg2 = Math.sin(-desiredAngle);
+          }
+        }
+        rightMotor.set(mg2);
+        rightMotorFollower.set(mg1);
+        leftMotor.set(mg1);
+        leftMotorFollower.set(mg2);
+      }
   }
 
   private double[] getAllMotors() 
