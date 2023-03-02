@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   private Drivetrain drivetrain;
-  // private Claw claw;
-  // private ClawGrab clawGrab;
-  // private ClawDrive clawDriveForward;
-  // private ClawDrive clawDriveBack;
+  private Claw claw;
+  private ClawGrab clawGrab;
+  private ClawDrive clawDriveForward;
+  private ClawDrive clawDriveBack;
   private CommandXboxController driverController;
 
 
@@ -34,14 +34,14 @@ public class RobotContainer {
     driverController = xbc;
     
     // Initalize a new Claw subsystem
-    // claw = new Claw();
+    claw = new Claw();
     
     // Initalize a new ClawGrab command
-    // clawGrab = new ClawGrab(claw);
+    clawGrab = new ClawGrab(claw, false);
     
-    // // Claw Drive commands
-    // clawDriveForward = new ClawDrive(claw, 1);
-    // clawDriveBack = new ClawDrive(claw, -1);
+    // Claw Drive commands
+    clawDriveForward = new ClawDrive(claw, 1, false);
+    clawDriveBack = new ClawDrive(claw, -1, false);
     
     // Configure the trigger bindings
     configureBindings();
@@ -58,9 +58,9 @@ public class RobotContainer {
    */
   private void configureBindings()
   {
-    // driverController.b().toggleOnTrue(clawGrab);
-    // driverController.rightBumper().whileTrue(clawDriveForward);
-    // driverController.leftBumper().whileTrue(clawDriveBack);
+    driverController.b().toggleOnTrue(clawGrab);
+    driverController.rightBumper().whileTrue(clawDriveForward);
+    driverController.leftBumper().whileTrue(clawDriveBack);
   }
 
   public Command getAutonomousCommand()

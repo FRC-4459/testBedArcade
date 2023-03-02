@@ -104,12 +104,12 @@ public class Drivetrain extends SubsystemBase {
     double shiftX = controller.getRightX();
     double shiftY = controller.getRightY();
 
-    shiftY = -shiftY;
-
+    
     forwardBack *= speedMult;
     left *= speedMult;
     right *= speedMult;
-
+    
+    shiftY = -shiftY;
     forwardBack = -forwardBack;
 
     if (forwardBack > 0.05 || forwardBack < -0.05)

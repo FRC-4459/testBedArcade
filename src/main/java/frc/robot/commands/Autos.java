@@ -15,7 +15,6 @@ import frc.robot.commands.ClawDrive;
 import frc.robot.commands.ClawGrab;
 
 public final class Autos {
-  /** Example static factory for an autonomous command. */
   public static CommandBase exampleAuto(ExampleSubsystem subsystem)
   {
     return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
@@ -27,12 +26,12 @@ public final class Autos {
     return Commands.sequence(driveForward);
   }
 
-  public static CommandBase placePieceAuto(Drivetrain drivetrain, Claw claw) 
+  public static CommandBase placePieceAuto(Drivetrain drivetrain, Claw claw)
   {
-      DriveForward driveForward = new DriveForward(drivetrain, 0.65, 3);
-      ClawDrive drive = new ClawDrive(claw, -1, true);
-      ClawGrab grab = new ClawGrab(claw, true);
-      return Commands.sequence(driveForward, drive, grab);
+    DriveForward driveForward = new DriveForward(drivetrain, 0.65, 3);
+    ClawDrive drive = new ClawDrive(claw, -1, true);
+    ClawGrab grab = new ClawGrab(claw, true);
+    return Commands.sequence(driveForward, drive, grab);
   }
 
   private Autos() {
