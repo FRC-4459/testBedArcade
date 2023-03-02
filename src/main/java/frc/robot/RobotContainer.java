@@ -4,6 +4,7 @@ import frc.robot.commands.Autos;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.commands.ClawGrab;
+import frc.robot.commands.ClawDrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -17,8 +18,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   private Drivetrain drivetrain;
-  private Claw claw;
-  private ClawGrab clawGrab;
+  // private Claw claw;
+  // private ClawGrab clawGrab;
+  // private ClawDrive clawDriveForward;
+  // private ClawDrive clawDriveBack;
   private CommandXboxController driverController;
 
 
@@ -26,12 +29,20 @@ public class RobotContainer {
   public RobotContainer(Drivetrain dt, CommandXboxController xbc) {
     // Use our Drivetrain subsystem initialized in Robot.java
     drivetrain = dt;
+    
     // Use the controller we've passed from Robot.java
     driverController = xbc;
+    
     // Initalize a new Claw subsystem
-    claw = new Claw();
+    // claw = new Claw();
+    
     // Initalize a new ClawGrab command
-    clawGrab = new ClawGrab(claw);
+    // clawGrab = new ClawGrab(claw);
+    
+    // // Claw Drive commands
+    // clawDriveForward = new ClawDrive(claw, 1);
+    // clawDriveBack = new ClawDrive(claw, -1);
+    
     // Configure the trigger bindings
     configureBindings();
   }
@@ -47,12 +58,9 @@ public class RobotContainer {
    */
   private void configureBindings()
   {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    // new Trigger(m_exampleSubsystem::exampleCondition)
-    // .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule a Spin command as long as B is held.
-    driverController.b().toggleOnTrue(clawGrab);
+    // driverController.b().toggleOnTrue(clawGrab);
+    // driverController.rightBumper().whileTrue(clawDriveForward);
+    // driverController.leftBumper().whileTrue(clawDriveBack);
   }
 
   public Command getAutonomousCommand()

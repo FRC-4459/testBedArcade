@@ -12,31 +12,21 @@ public class Claw extends SubsystemBase {
     private Talon driverMotor = new Talon(Constants.clawDriverPort);
     private Talon gripMotor = new Talon(Constants.clawGripPort);
 
-    public Claw() {
+    public Claw() {}
 
-    }
-
-    public void driveForward()
+    public void setDriverMotor(double speed)
     {
-        driverMotor.set(1);
+        driverMotor.set(speed);
     }
 
-    public void driveBack()
-    {
-        driverMotor.set(-1);
-    }
-
-    public void setGrip(double val) 
+    public void setGrip(double val)
     {
         gripMotor.set(val);
     }
 
 
     @Override
-    public void periodic()
-    {
-
-    }
+    public void periodic() {}
 
     @Override
     public void simulationPeriodic()

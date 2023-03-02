@@ -142,8 +142,8 @@ public class Drivetrain extends SubsystemBase {
 
         if (shiftY < 0)
         {
-          motorGroup1 = Math.cos(desiredAngle);
-          motorGroup2 = Math.sin(-desiredAngle);
+          motorGroup1 = Math.cos(-desiredAngle);
+          motorGroup2 = Math.sin(desiredAngle);
         }
         else
         {
@@ -156,13 +156,13 @@ public class Drivetrain extends SubsystemBase {
       {
         if (shiftY < 0)
         {
-          motorGroup1 = Math.cos(-desiredAngle);
+          motorGroup1 = Math.cos(desiredAngle);
           motorGroup2 = Math.sin(-desiredAngle);
         }
         else
         {
           motorGroup1 = Math.cos(-desiredAngle);
-          motorGroup2 = Math.sin(desiredAngle);
+          motorGroup2 = Math.sin(-desiredAngle);
         }
       }
 

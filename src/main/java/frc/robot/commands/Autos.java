@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.commands.Spin;
 import frc.robot.commands.DriveForward;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
