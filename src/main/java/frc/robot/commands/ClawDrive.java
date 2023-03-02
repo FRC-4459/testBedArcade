@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.Timer;
+
 import frc.robot.subsystems.Claw;
 
 /** An example command that uses an example subsystem. */
@@ -13,9 +15,14 @@ public class ClawDrive extends CommandBase {
 	private Claw claw;
 	private double speed;
 
-	public ClawDrive(Claw c, double rate) {
+	private boolean timed;
+	private final double time = 1;
+	private Timer timer = new Timer();
+
+	public ClawDrive(Claw c, double rate, boolean isTimed) {
 		claw = c;
 		speed = rate;
+		timed = isTimed;
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(c);
@@ -40,6 +47,11 @@ public class ClawDrive extends CommandBase {
 	@Override
 	public boolean isFinished()
 	{
+		if (timer.get() > time && timed)
+		{
+			return true;
+		}
+
 		return false;
 	}
 }

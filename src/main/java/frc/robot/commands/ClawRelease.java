@@ -5,12 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
-
 import frc.robot.subsystems.Claw;
 
+import edu.wpi.first.wpilibj.Timer;
 
-public class ClawGrab extends CommandBase {
+public class ClawRelease extends CommandBase {
 	@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 	private final Claw claw;
 
@@ -18,7 +17,7 @@ public class ClawGrab extends CommandBase {
 	private final double time = 1;
 	private Timer timer = new Timer();
 
-	public ClawGrab(Claw c, boolean isTimed) {
+	public ClawRelease(Claw c, boolean isTimed) {
 		claw = c;
 		timed = isTimed;
 
@@ -28,20 +27,21 @@ public class ClawGrab extends CommandBase {
 
 	// Called when the command is initially scheduled.
 	@Override
-	public void initialize() {}
+	public void initialize()
+	{}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute()
 	{
-		claw.setGrip(1);
+		claw.setGrip(-1);
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted)
 	{
-		claw.setGrip(0);
+		
 	}
 
 	// Returns true when the command should end.
