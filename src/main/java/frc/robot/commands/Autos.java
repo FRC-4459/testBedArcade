@@ -34,6 +34,13 @@ public final class Autos {
     return Commands.sequence(driveForward, drive, grab);
   }
 
+  public static CommandBase pushPieceAuto(Drivetrain drivetrain) 
+  {
+    DriveForward driveBackward = new DriveForward(drivetrain, -0.65, 2);
+    DriveForward driveToCharge = new DriveForward(drivetrain, 1, 0.5);
+    return Commands.sequence(driveBackward, driveToCharge);
+  }
+
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");
   }

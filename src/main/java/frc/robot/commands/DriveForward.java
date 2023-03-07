@@ -38,7 +38,7 @@ public class DriveForward extends CommandBase {
   @Override
   public void execute()
   {
-    drivetrain.setLeft(-speed);
+    drivetrain.setLeft(speed);
     drivetrain.setRight(speed);
   }
 

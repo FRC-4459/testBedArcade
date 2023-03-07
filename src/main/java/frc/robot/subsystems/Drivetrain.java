@@ -22,7 +22,7 @@ public class Drivetrain extends SubsystemBase {
   private final DifferentialDrive diffDrive =
       new DifferentialDrive(motorGroupLeft, motorGroupRight);
 
-  private final double speedMult = 0.8;
+  private final double speedMult = 1;
 
   public Drivetrain() {
     rightMotor.setSafetyEnabled(true);
@@ -48,7 +48,7 @@ public class Drivetrain extends SubsystemBase {
   {
     i = i * speedMult;
     leftMotor.set(i);
-    leftMotorFollower.set(i / 2);
+    leftMotorFollower.set(i);
   }
 
   public void setRight(double i)
@@ -104,11 +104,11 @@ public class Drivetrain extends SubsystemBase {
     double shiftX = controller.getRightX();
     double shiftY = controller.getRightY();
 
-    
+
     forwardBack *= speedMult;
     left *= speedMult;
     right *= speedMult;
-    
+
     shiftY = -shiftY;
     forwardBack = -forwardBack;
 
@@ -134,42 +134,42 @@ public class Drivetrain extends SubsystemBase {
 
     if ((shiftX > 0.12 || shiftX < -0.12) || (shiftY > 0.12 || shiftY < -0.12))
     {
-      double desiredAngle = Math.atan(shiftY / shiftX) - 45;
-      double motorGroup1, motorGroup2;
-      
-      if (shiftX > 0)
-      {
+      double multiplier = Math.hypot(shiftX, shiftY);
+      double desiredAngle = Math.atan2(shiftY, shiftX) - Math.PI / 4;
 
-        if (shiftY < 0)
-        {
-          motorGroup1 = Math.cos(-desiredAngle);
-          motorGroup2 = Math.sin(desiredAngle);
-        }
-        else
-        {
-          motorGroup1 = Math.cos(desiredAngle);
-          motorGroup2 = Math.sin(desiredAngle);
-        }
-      }
-      
-      else
-      {
-        if (shiftY < 0)
-        {
-          motorGroup1 = Math.cos(desiredAngle);
-          motorGroup2 = Math.sin(-desiredAngle);
-        }
-        else
-        {
-          motorGroup1 = Math.cos(-desiredAngle);
-          motorGroup2 = Math.sin(-desiredAngle);
-        }
-      }
+      // if (shiftX > 0)
+      // {
 
-      rightMotor.set(motorGroup2);
-      rightMotorFollower.set(motorGroup1);
-      leftMotor.set(motorGroup1);
-      leftMotorFollower.set(motorGroup2);
+      //   if (shiftY < 0)
+      //   {
+      //     motorGroup1 = Math.cos(-desir edAngle);
+      //     motorGroup2 = Math.sin(desiredAngle);
+      //   }
+      //   else
+      //   {
+      //     motorGroup1 = Math.cos(desiredAngle);
+      //     motorGroup2 = Math.sin(desiredAngle);
+      //   }
+      // }
+
+      // else
+      // {
+      //   if (shiftY < 0)
+      //   {
+      //     motorGroup1 = Math.cos(desiredAngle);
+      //     motorGroup2 = Math.sin(-desiredAngle);
+      //   }
+      //   else
+      //   {
+      //     motorGroup1 = Math.cos(-desiredAngle);
+      //     motorGroup2 = Math.sin(-desiredAngle);
+      //   }
+      // } 
+
+      leftMotor.set(multiplier * Math.cos(desiredAngle) + shiftX);
+      rightMotor.set(multiplier * Math.sin(desiredAngle) - shiftX);
+      leftMotorFollower.set(multiplier * Math.sin(desiredAngle) - shiftX);
+      rightMotorFollower.set(multiplier * Math.cos(desiredAngle) - shiftX);
     }
   }
 
@@ -205,4 +205,4 @@ public class Drivetrain extends SubsystemBase {
   {
     // This method will be called once per scheduler run during simulation
   }
-}
+};

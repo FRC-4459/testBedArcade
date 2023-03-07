@@ -1,10 +1,11 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.subsystems.Claw;
+// import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.commands.ClawGrab;
-import frc.robot.commands.ClawDrive;
+// import frc.robot.commands.ClawGrab;
+// import frc.robot.commands.ClawRelease;
+// import frc.robot.commands.ClawDrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -18,10 +19,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   private Drivetrain drivetrain;
-  private Claw claw;
-  private ClawGrab clawGrab;
-  private ClawDrive clawDriveForward;
-  private ClawDrive clawDriveBack;
+  // private Claw claw;
+  // private ClawGrab clawGrab;
+  // private ClawRelease clawRelease;
+  // private ClawDrive clawDriveForward;
+  // private ClawDrive clawDriveBack;
   private CommandXboxController driverController;
 
 
@@ -34,14 +36,15 @@ public class RobotContainer {
     driverController = xbc;
     
     // Initalize a new Claw subsystem
-    claw = new Claw();
+    // claw = new Claw();
     
     // Initalize a new ClawGrab command
-    clawGrab = new ClawGrab(claw, false);
+    // clawGrab = new ClawGrab(claw, false);
+    // clawRelease = new ClawRelease(claw, true);
     
     // Claw Drive commands
-    clawDriveForward = new ClawDrive(claw, 1, false);
-    clawDriveBack = new ClawDrive(claw, -1, false);
+    // clawDriveForward = new ClawDrive(claw, 1, false);
+    // clawDriveBack = new ClawDrive(claw, -1, false);
     
     // Configure the trigger bindings
     configureBindings();
@@ -58,14 +61,15 @@ public class RobotContainer {
    */
   private void configureBindings()
   {
-    driverController.b().toggleOnTrue(clawGrab);
-    driverController.rightBumper().whileTrue(clawDriveForward);
-    driverController.leftBumper().whileTrue(clawDriveBack);
+    // driverController.x().toggleOnTrue(clawGrab);
+    // driverController.y().onTrue(clawRelease);
+    // driverController.rightBumper().whileTrue(clawDriveForward);
+    // driverController.leftBumper().whileTrue(clawDriveBack);
   }
 
   public Command getAutonomousCommand()
   {
     // Return whichever autonomous command you want to use.
-    return Autos.driveForwardAuto(drivetrain);
+    return Autos.pushPieceAuto(drivetrain);
   }
 }

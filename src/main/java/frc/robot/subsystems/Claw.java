@@ -6,11 +6,11 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 
 public class Claw extends SubsystemBase {
-    private Talon driverMotor = new Talon(Constants.clawDriverPort);
-    private Talon gripMotor = new Talon(Constants.clawGripPort);
+    private PWMTalonSRX driverMotor = new PWMTalonSRX(Constants.clawDriverPort);
+    private PWMTalonSRX gripMotor = new PWMTalonSRX(Constants.clawGripPort);
 
     public Claw() {}
 
@@ -23,7 +23,6 @@ public class Claw extends SubsystemBase {
     {
         gripMotor.set(val);
     }
-
 
     @Override
     public void periodic() {}
