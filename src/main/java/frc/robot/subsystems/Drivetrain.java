@@ -46,21 +46,18 @@ public class Drivetrain extends SubsystemBase {
 
   public void setLeft(double i)
   {
-    i = i * speedMult;
     leftMotor.set(i);
     leftMotorFollower.set(i);
   }
 
   public void setRight(double i)
   {
-    i = i * speedMult;
     rightMotor.set(i);
     rightMotorFollower.set(i);
   }
 
   public void set(double i)
   {
-    i = i * speedMult;
     rightMotor.set(i);
     leftMotor.set(i);
     rightMotorFollower.set(i);
