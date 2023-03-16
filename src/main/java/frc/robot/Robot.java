@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(drivetrain, driverController);
-  }
+  } 
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -109,13 +109,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic()
   {
-    System.out.print("X: ");
-    System.out.print(driverController.getRightX());
-    System.out.print("\n");
-
-    System.out.print("Y: ");
-    System.out.print(-driverController.getRightY());
-    System.out.print("\n");
+    
   }
 
   /** This function is called once when the robot is first started up. */
@@ -129,6 +123,10 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic()
   {
-
+    double angle = Math.atan2(-driverController.getRightY(), driverController.getRightX());
+    if (-driverController.getRightY() < 0 && driverController.getRightX() < 0) 
+    {
+      System.out.println("Third Quadrant!!");
+    }
   }
 }
