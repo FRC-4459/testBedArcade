@@ -28,7 +28,7 @@ public class DropPiece extends CommandBase {
 	public void initialize()
 	{
 		Double liftTime = null;
-		Double liftSpeed = 0.5;
+		Double liftSpeed = 0.4;
 
 		switch (location) {
 			case "High":

@@ -48,8 +48,8 @@ public class RobotContainer {
     clawRelease = new ClawRelease(claw);
     
     // Claw Drive commands
-    clawDriveForward = new ClawDrive(claw, 0.5);
-    clawDriveBack = new ClawDrive(claw, -0.5);
+    clawDriveForward = new ClawDrive(claw, 0.4);
+    clawDriveBack = new ClawDrive(claw, -0.4);
     
     // Piece Dropping Macros
     dropPieceHigh = new DropPiece(claw, "High");
