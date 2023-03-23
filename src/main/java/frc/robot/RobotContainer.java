@@ -1,11 +1,13 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.subsystems.Claw;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.commands.ClawGrab;
 import frc.robot.commands.ClawRelease;
 import frc.robot.commands.ClawDrive;
+import frc.robot.commands.DropPiece;
+
+import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -24,6 +26,9 @@ public class RobotContainer {
   private ClawRelease clawRelease;
   private ClawDrive clawDriveForward;
   private ClawDrive clawDriveBack;
+  private DropPiece dropPieceHigh;
+  private DropPiece dropPieceMid;
+  private DropPiece dropPieceLow;
   private CommandXboxController driverController;
 
 
@@ -46,6 +51,11 @@ public class RobotContainer {
     clawDriveForward = new ClawDrive(claw, 0.5);
     clawDriveBack = new ClawDrive(claw, -0.5);
     
+    // Piece Dropping Macros
+    dropPieceHigh = new DropPiece(claw, "High");
+    dropPieceMid = new DropPiece(claw, "Mid");
+    dropPieceLow = new DropPiece(claw, "Low");
+
     // Configure the trigger bindings
     configureBindings();
   }
@@ -65,6 +75,10 @@ public class RobotContainer {
     driverController.y().toggleOnTrue(clawRelease);
     driverController.rightBumper().whileTrue(clawDriveForward);
     driverController.leftBumper().whileTrue(clawDriveBack);
+
+    driverController.b().onTrue(dropPieceHigh);
+    driverController.a().onTrue(dropPieceMid);
+    driverController.rightStick().onTrue(dropPieceLow);
   }
 
   public Command getAutonomousCommand()

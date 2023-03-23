@@ -122,11 +122,5 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic()
-  {
-    double angle = Math.atan2(-driverController.getRightY(), driverController.getRightX());
-    if (-driverController.getRightY() < 0 && driverController.getRightX() < 0) 
-    {
-      System.out.println("Third Quadrant!!");
-    }
-  }
+    {}
 }

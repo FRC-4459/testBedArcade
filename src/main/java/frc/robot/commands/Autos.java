@@ -6,13 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Claw;
-
-import frc.robot.commands.DriveForward;
-import frc.robot.commands.ClawDrive;
-import frc.robot.commands.ClawGrab;
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 public final class Autos {
   public static CommandBase exampleAuto(ExampleSubsystem subsystem)
@@ -28,10 +23,17 @@ public final class Autos {
 
   public static CommandBase placePieceAuto(Drivetrain drivetrain, Claw claw)
   {
-    DriveForward driveForward = new DriveForward(drivetrain, 0.65, 3);
-    ClawDrive drive = new ClawDrive(claw, 0.5, 1);
-    ClawGrab grab = new ClawGrab(claw, 1);
-    return Commands.sequence(driveForward, drive, grab);
+    ClawGrab holdPiece = new ClawGrab(claw, 15);
+    DriveForward approachGoal = new DriveForward(drivetrain, 0.6, 0.8);
+    DropPiece dropPiece = new DropPiece(claw, "Mid");
+    DriveForward climbChargingStation = new DriveForward(drivetrain, -0.8, 2);
+
+    return Commands.sequence(
+      Commands.parallel(holdPiece, approachGoal),
+      dropPiece,
+      climbChargingStation
+    );
+
   }
 
   public static CommandBase pushPieceAuto(Drivetrain drivetrain) 

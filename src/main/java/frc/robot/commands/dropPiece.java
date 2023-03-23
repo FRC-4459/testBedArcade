@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Claw;
 
 import frc.robot.commands.ClawDrive;
-import frc.robot.commands.ClawGrab;
+import frc.robot.commands.ClawRelease;
 
-public class dropPiece extends CommandBase {
+public class DropPiece extends CommandBase {
 	private final Claw claw;
 	private final String location;
 
-	public dropPiece(Claw c, String l) {
+	public DropPiece(Claw c, String l) {
 		claw = c;
 		location = l;
 
@@ -45,11 +45,17 @@ public class dropPiece extends CommandBase {
 				throw new Error("Invalid lift location! Pass dropPiece() a value of 'High', 'Mid', or 'Low'.");
 		}
 		
-		ClawDrive moveToGoal = new ClawDrive(claw, liftSpeed, liftTime);
+		// ClawGrab holdPiece = new ClawGrab(claw, 6);
+		// DriveForward approachGoal = new DriveForward(drivetrain, 0.6, 0.5)
+		ClawDrive moveClawToGoal = new ClawDrive(claw, liftSpeed, liftTime);
+		ClawRelease dropPiece = new ClawRelease(claw, 0.5);
 
 		CommandBase steps = Commands.sequence(
-			
+			moveClawToGoal, 
+			dropPiece
 		);
+
+		steps.schedule();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
