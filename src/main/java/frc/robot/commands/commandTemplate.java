@@ -5,60 +5,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.ExampleSubsystem;
 
-import edu.wpi.first.wpilibj.Timer;
-
-public class ClawRelease extends CommandBase {
+public class commandTemplate extends CommandBase {
 	@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-	private final Claw claw;
+	private final ExampleSubsystem m_subsystem;
 
-	private boolean timed;
-	private double time = 0;
-	private Timer timer = new Timer();
+	public commandTemplate(ExampleSubsystem subsystem) {
+		m_subsystem = subsystem;
 
-	public ClawRelease(Claw c) {
-		claw = c;
-		timed = false;
-
-		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(c);
-	}
-
-	public ClawRelease(Claw c, double Time) {
-		claw = c;
-		time = Time;
-		timed = true;
+		addRequirements(subsystem);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize()
-	{}
+	{
+		m_subsystem.exampleCondition();
+	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute()
-	{
-		claw.setGrip(-1);
-	}
+	{}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted)
-	{
-		claw.setGrip(0);
-	}
+	{}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished()
 	{
-		if (timer.get() > time && timed)
-		{
-			return true;
-		}
-
 		return false;
 	}
 }

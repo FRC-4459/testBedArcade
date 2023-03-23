@@ -15,15 +15,21 @@ public class ClawGrab extends CommandBase {
 	private final Claw claw;
 
 	private boolean timed;
-	private final double time = 1;
+	private double time = 0;
 	private Timer timer = new Timer();
 
-	public ClawGrab(Claw c, boolean isTimed) {
+	public ClawGrab(Claw c) {
 		claw = c;
-		timed = isTimed;
+		timed = false;
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(c);
+	}
+
+	public ClawGrab(Claw c, double Time) {
+		claw = c;
+		time = Time;
+		timed = true;
 	}
 
 	// Called when the command is initially scheduled.

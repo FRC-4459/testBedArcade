@@ -39,12 +39,12 @@ public class RobotContainer {
     claw = new Claw();
     
     // Initalize a new ClawGrab command
-    clawGrab = new ClawGrab(claw, false);
-    clawRelease = new ClawRelease(claw, false);
+    clawGrab = new ClawGrab(claw);
+    clawRelease = new ClawRelease(claw);
     
     // Claw Drive commands
-    clawDriveForward = new ClawDrive(claw, 0.5, false);
-    clawDriveBack = new ClawDrive(claw, -0.5, false);
+    clawDriveForward = new ClawDrive(claw, 0.5);
+    clawDriveBack = new ClawDrive(claw, -0.5);
     
     // Configure the trigger bindings
     configureBindings();

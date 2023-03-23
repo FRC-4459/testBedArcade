@@ -16,16 +16,23 @@ public class ClawDrive extends CommandBase {
 	private double speed;
 
 	private boolean timed;
-	private final double time = 1;
+	private double time = 0;
 	private Timer timer = new Timer();
 
-	public ClawDrive(Claw c, double rate, boolean isTimed) {
+	public ClawDrive(Claw c, double rate) {
 		claw = c;
 		speed = rate;
-		timed = isTimed;
+		timed = false;
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(c);
+	}
+
+	public ClawDrive(Claw c, double rate, double Time) {
+		claw = c;
+		speed = rate;
+		time = Time;
+		timed = true;
 	}
 
 	// Called when the command is initially scheduled.

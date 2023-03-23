@@ -29,8 +29,8 @@ public final class Autos {
   public static CommandBase placePieceAuto(Drivetrain drivetrain, Claw claw)
   {
     DriveForward driveForward = new DriveForward(drivetrain, 0.65, 3);
-    ClawDrive drive = new ClawDrive(claw, -1, true);
-    ClawGrab grab = new ClawGrab(claw, true);
+    ClawDrive drive = new ClawDrive(claw, 0.5, 1);
+    ClawGrab grab = new ClawGrab(claw, 1);
     return Commands.sequence(driveForward, drive, grab);
   }
 
