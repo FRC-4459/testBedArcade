@@ -34,7 +34,7 @@ public class ClawGrab extends CommandBase {
 	@Override
 	public void execute()
 	{
-		claw.setGrip(1);
+		claw.setGrip(0.5);
 	}
 
 	// Called once the command ends or is interrupted.

@@ -41,7 +41,7 @@ public class ClawRelease extends CommandBase {
 	@Override
 	public void end(boolean interrupted)
 	{
-		
+		claw.setGrip(0);
 	}
 
 	// Returns true when the command should end.
